@@ -17,10 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 */
 
 
-// Define Telegram API token and chat ID
-define('TELEGRAM_API_TOKEN', 'YOUR_TELEGRAM_API_TOKEN');
-define('TELEGRAM_CHAT_ID', 'YOUR_TELEGRAM_CHAT_ID');
-
 class Uwns_Telegram_Order_Notifications {
     // Telegram API token and chat ID
     private $api_token;
@@ -32,7 +28,6 @@ class Uwns_Telegram_Order_Notifications {
         $this->api_token = esc_attr($options['telegram_api_token'] ?? '');
         $this->chat_id = esc_attr($options['telegram_chat_id'] ?? '');
 
-        register_activation_hook(__FILE__, array($this, 'uwns_plugin_activation'));
         add_action('woocommerce_new_order', array($this, 'uwns_send_order_notification'));
         add_action('plugins_loaded', array($this, 'uwns_load_plugin_textdomain'));
 
@@ -41,13 +36,6 @@ class Uwns_Telegram_Order_Notifications {
 
     public function uwns_load_plugin_textdomain() {
         load_plugin_textdomain('ultimate-woo-notification-sender', false, dirname(plugin_basename(__FILE__)) . '/languages/');
-    }
-
-    public function uwns_plugin_activation(){
-        if (!class_exists('WooCommerce')) {
-            wp_redirect(admin_url('plugin-install.php?s=woocommerce&tab=search&type=term'));
-            exit;
-        }
     }
 
     // Send order notification

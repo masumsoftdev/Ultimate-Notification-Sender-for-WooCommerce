@@ -17,11 +17,11 @@ class Uwns_Admin {
     public function uwns_add_menu_page() {
         add_menu_page(
             __('Ultimate Woo Notifications Settings', 'ultimate-woo-notification-sender'),
-            __('Woo Sender Settings', 'ultimate-woo-notification-sender'),
+            __('Woo Sender', 'ultimate-woo-notification-sender'),
             'manage_options',
             'ultimate-woo-sender-settings',
             array($this, 'settings_page'),
-            'dashicons-megaphone'
+            'dashicons-bell', 57
         );
     }
 
