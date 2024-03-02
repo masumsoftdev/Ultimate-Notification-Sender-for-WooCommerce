@@ -39,9 +39,9 @@ class Uwns_Admin {
             <?php settings_fields('ultimate_woo_sender_options'); ?>
                 <?php $options = get_option('uwns_settings', array()); ?>
                 <table class="form-table">
-                <tr valign="top">
-                        <th scope="row"><?php _e('Telegram API Token', 'ultimate-woo-notification-sender'); ?></th>
-                        <td><input type="text" name="uwns_settings[telegram_api_token]" value="<?php echo esc_attr($options['telegram_api_token'] ?? ''); ?>" /></td>
+                    <tr valign="top">
+                            <th scope="row"><?php _e('Telegram API Token', 'ultimate-woo-notification-sender'); ?></th>
+                            <td><input type="text" name="uwns_settings[telegram_api_token]" value="<?php echo esc_attr($options['telegram_api_token'] ?? ''); ?>" /></td>
                     </tr>
                     <tr valign="top">
                         <th scope="row"><?php _e('Telegram Chat ID', 'ultimate-woo-notification-sender'); ?></th>
