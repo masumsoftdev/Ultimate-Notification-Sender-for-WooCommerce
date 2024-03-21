@@ -3,21 +3,21 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class Uwns_Admin {
+class unsfw_Admin {
     // Constructor
     public function __construct() {
         // Add menu page
-        add_action('admin_menu', array($this, 'uwns_add_menu_page'));
+        add_action('admin_menu', array($this, 'unsfw_add_menu_page'));
 
         // Register plugin settings
-        add_action('admin_init', array($this, 'uwns_register_settings'));
+        add_action('admin_init', array($this, 'unsfw_register_settings'));
     }
 
     // Add menu page
-    public function uwns_add_menu_page() {
+    public function unsfw_add_menu_page() {
         add_menu_page(
-            __('Ultimate Woo Notifications Settings', 'ultimate-woo-notification-sender'),
-            __('Woo Sender', 'ultimate-woo-notification-sender'),
+            __('Ultimate Notifications Sender Settings', 'unsfw'),
+            __('Woo Notification', 'unsfw'),
             'manage_options',
             'ultimate-woo-sender-settings',
             array($this, 'settings_page'),
@@ -26,26 +26,26 @@ class Uwns_Admin {
     }
 
     // Register plugin settings
-    public function uwns_register_settings() {
-        register_setting('ultimate_woo_sender_options', 'uwns_settings', array($this, 'sanitize_settings'));
+    public function unsfw_register_settings() {
+        register_setting('ultimate_woo_sender_options', 'unsfw_settings', array($this, 'sanitize_settings'));
     }
 
     // Settings page content
     public function settings_page() {
         ?>
         <div class="wrap">
-            <h1><?php esc_html_e('Ultimate Woo Notifications Settings', 'ultimate-woo-notification-sender'); ?></h1>
+            <h1><?php esc_html_e('Ultimate Woo Notifications Settings', 'unsfw'); ?></h1>
             <form method="post" action="options.php">
             <?php settings_fields('ultimate_woo_sender_options'); ?>
-                <?php $options = get_option('uwns_settings', array()); ?>
+                <?php $options = get_option('unsfw_settings', array()); ?>
                 <table class="form-table">
                     <tr valign="top">
-                            <th scope="row"><?php esc_html_e('Telegram API Token', 'ultimate-woo-notification-sender'); ?></th>
-                            <td><input type="text" name="uwns_settings[telegram_api_token]" value="<?php echo esc_attr($options['telegram_api_token'] ?? ''); ?>" /></td>
+                            <th scope="row"><?php esc_html_e('Telegram API Token', 'unsfw'); ?></th>
+                            <td><input type="text" name="unsfw_settings[telegram_api_token]" value="<?php echo esc_attr($options['telegram_api_token'] ?? ''); ?>" /></td>
                     </tr>
                     <tr valign="top">
-                        <th scope="row"><?php esc_html_e('Telegram Chat ID', 'ultimate-woo-notification-sender'); ?></th>
-                        <td><input type="text" name="uwns_settings[telegram_chat_id]" value="<?php echo esc_attr($options['telegram_chat_id'] ?? ''); ?>" /></td>
+                        <th scope="row"><?php esc_html_e('Telegram Chat ID', 'unsfw'); ?></th>
+                        <td><input type="text" name="unsfw_settings[telegram_chat_id]" value="<?php echo esc_attr($options['telegram_chat_id'] ?? ''); ?>" /></td>
                     </tr>
                 </table>
                 <?php submit_button(); ?>
@@ -55,4 +55,4 @@ class Uwns_Admin {
     }
 }
 
-new Uwns_Admin();
+new unsfw_Admin();

@@ -5,4 +5,4 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 // Delete options 
-delete_option('uwns_settings');
+delete_option('unsfw_settings');
