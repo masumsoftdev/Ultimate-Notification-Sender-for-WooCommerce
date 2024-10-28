@@ -3,7 +3,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class unsfw_Admin {
+class Unsfw_Admin {
     // Constructor
     public function __construct() {
         // Add menu page
@@ -11,6 +11,7 @@ class unsfw_Admin {
 
         // Register plugin settings
         add_action('admin_init', array($this, 'unsfw_register_settings'));
+        
     }
 
     // Add menu page
@@ -40,8 +41,15 @@ class unsfw_Admin {
                 <?php $options = get_option('unsfw_settings', array()); ?>
                 <table class="form-table">
                     <tr valign="top">
-                            <th scope="row"><?php esc_html_e('Telegram API Token', 'unsfw'); ?></th>
-                            <td><input type="text" name="unsfw_settings[telegram_api_token]" value="<?php echo esc_attr($options['telegram_api_token'] ?? ''); ?>" /></td>
+                        <th scope="row"><?php esc_html_e('Enable Notifications', 'unsfw'); ?></th>
+                        <td>
+                            <input type="checkbox" name="unsfw_settings[enable_notifications]" value="1" <?php checked($options['enable_notifications'] ?? '', 1); ?> />
+                            <label for="enable_notifications"><?php esc_html_e('Enable Telegram Notifications', 'unsfw'); ?></label>
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><?php esc_html_e('Telegram API Token', 'unsfw'); ?></th>
+                        <td><input type="text" name="unsfw_settings[telegram_api_token]" value="<?php echo esc_attr($options['telegram_api_token'] ?? ''); ?>" /></td>
                     </tr>
                     <tr valign="top">
                         <th scope="row"><?php esc_html_e('Telegram Chat ID', 'unsfw'); ?></th>
@@ -53,6 +61,14 @@ class unsfw_Admin {
         </div>
         <?php
     }
+
+    // Sanitize settings before saving
+    public function sanitize_settings($input) {
+        $input['enable_notifications'] = !empty($input['enable_notifications']) ? 1 : 0;
+        $input['telegram_api_token'] = sanitize_text_field($input['telegram_api_token']);
+        $input['telegram_chat_id'] = sanitize_text_field($input['telegram_chat_id']);
+        return $input;
+    }
 }
 
-new unsfw_Admin();
+new Unsfw_Admin();
